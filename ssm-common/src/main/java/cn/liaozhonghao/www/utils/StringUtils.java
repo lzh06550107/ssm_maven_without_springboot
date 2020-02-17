@@ -1,9 +1,8 @@
 package cn.liaozhonghao.www.utils;
 
-import sun.misc.BASE64Decoder;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Vector;
 
@@ -270,10 +269,10 @@ public class StringUtils {
      * @return
      */
     public static String decodeString(String context) {
-        BASE64Decoder decoder = new BASE64Decoder();
         try {
-            byte[] fileNameStr = decoder.decodeBuffer(context);
+            byte[] fileNameStr = Base64.getDecoder().decode(context);
             context = new String(fileNameStr, "UTF-8");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -288,10 +287,11 @@ public class StringUtils {
     public static String encodeString(String str) {
         String base64Str = null;
         try {
-            base64Str = new sun.misc.BASE64Encoder().encode(str.getBytes("UTF-8"));
+            base64Str = Base64.getEncoder().encodeToString(str.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         return base64Str;
     }
 }
